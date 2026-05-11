@@ -1,24 +1,39 @@
 import streamlit as st
 import pandas as pd
 
+import streamlit as st
+import pandas as pd
+
 st.set_page_config(page_title="EXP/MASS PLAN", layout="wide")
-# st.title("")
+# st.title("📂 다중 엑셀 데이터 조회")
 
-uploaded_file = st.file_uploader("엑셀 파일을 업로드하세요", type=['xlsx', 'xls'])
+# accept_multiple_files=True 옵션을 추가합니다.
+uploaded_files = st.file_uploader(
+    "엑셀 파일들을 업로드하세요 (여러 개 가능)", 
+    type=['xlsx', 'xls'], 
+    accept_multiple_files=True
+)
 
-if uploaded_file:
-    df = pd.read_excel(uploaded_file, header=1)
+if uploaded_files:
+    # 파일 이름을 리스트로 만들어 탭 생성
+    file_names = [file.name for file in uploaded_files]
+    tabs = st.tabs(file_names)
 
-    search_term = st.text_input("🔍 검색어를 입력하세요 (예: 상품명, 이름)")
-
-    if search_term:
-        # 모든 컬럼에서 검색어가 포함된 행만 필터링
-        filtered_df = df[df.apply(lambda row: row.astype(str).str.contains(search_term).any(), axis=1)]
-        st.write(f"검색 결과: {len(filtered_df)}건")
-        st.dataframe(filtered_df) # 모바일에서도 표가 깔끔하게 보임
-    else:
-        st.write("전체 데이터 미리보기:")
-        st.dataframe(df)
-
+    for i, file in enumerate(uploaded_files):
+        with tabs[i]:
+            df = pd.read_excel(file)
+            
+            # 요약 정보 보여주기
+            st.subheader(f"📄 {file.name} 데이터")
+            st.write(f"전체 행 수: {len(df)}개 / 컬럼 수: {len(df.columns)}개")
+            
+            # 검색 기능 (각 탭마다 별도로 작동)
+            search = st.text_input(f"🔍 {file.name} 내 검색", key=f"search_{i}")
+            
+            if search:
+                filtered_df = df[df.apply(lambda row: row.astype(str).str.contains(search).any(), axis=1)]
+                st.dataframe(filtered_df, use_container_width=True)
+            else:
+                st.dataframe(df, use_container_width=True)
 else:
-    st.info("파일을 업로드하면 조회를 시작할 수 있습니다.")
+    st.info("비교하거나 조회할 엑셀 파일들을 먼저 업로드해 주세요.")
