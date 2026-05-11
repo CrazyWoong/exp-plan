@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 
 st.set_page_config(page_title="EXP/MASS PLAN", layout="wide")
-st.title("DOT 19")
+# st.title("")
 
 uploaded_file = st.file_uploader("엑셀 파일을 업로드하세요", type=['xlsx', 'xls'])
 
