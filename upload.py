@@ -1,0 +1,29 @@
+import os
+import shutil
+import datetime
+import glob
+
+# 1. 주차 계산
+dot = datetime.datetime.now().isocalendar()[1] - 1
+
+# 2. 유저님의 특정 폴더 경로 (OneDrive)
+base_path = r"C:\Users\HANTA\OneDrive - HKNC\2026 PI PJT\시험용 계획 양시 계획"
+plan_dir = os.path.join(base_path, "PCR LTR 시험용 계획 작성\파이썬 실행")
+mold_dir = os.path.join(base_path, "양시 계획")
+
+# 3. 파일 찾기 (특정 폴더 지정)
+exp_file = glob.glob(os.path.join(plan_dir, f"DOT {dot}주차 Dp-X-*.xlsx"))
+mass_file = glob.glob(os.path.join(mold_dir, f"DOT {dot}주차 Mass*.xlsx"))
+
+# 4. GitHub 로컬 저장소 폴더로 복사 (이 코드가 있는 폴더 기준)
+if exp_file:
+    shutil.copy(exp_file[0], "exp_now.xlsx")
+if mass_file:
+    shutil.copy(mass_file[0], "mass_now.xlsx")
+
+# 5. GitHub 업로드 명령 실행 (Git이 설치되어 있어야 함)
+os.system("git add .")
+os.system(f'git commit -m "{dot}주차 데이터 업데이트"')
+os.system("git push")
+
+print(f"{dot}주차 파일 업로드 완료!")
