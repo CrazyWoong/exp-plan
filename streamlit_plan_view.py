@@ -21,7 +21,7 @@ if uploaded_files:
 
     for i, file in enumerate(uploaded_files):
         with tabs[i]:
-            df = pd.read_excel(file)
+            df = pd.read_excel(file, header=1)
             
             # 요약 정보 보여주기
             st.subheader(f"📄 {file.name} 데이터")
