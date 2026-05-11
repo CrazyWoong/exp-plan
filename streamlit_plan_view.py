@@ -1,9 +1,6 @@
 import streamlit as st
 import pandas as pd
 
-import streamlit as st
-import pandas as pd
-
 st.set_page_config(page_title="EXP/MASS PLAN", layout="wide")
 # st.title("📂 다중 엑셀 데이터 조회")
 
