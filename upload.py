@@ -27,7 +27,7 @@ os.system("git push")
 
 print(f"{dot}주차 파일 업로드 완료!")
 
-# cmd 에서 해당 위치 찾아가서 실행 upload : cd OneDrive - HKNC\Streamlit Python
+# cmd 에서 해당 위치 찾아가서 실행 upload : cd OneDrive - HKNC\Streamlit Python, python upload.py
 
 # 에러 발생 시
 # git add .

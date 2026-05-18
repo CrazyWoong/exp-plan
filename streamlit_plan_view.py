@@ -29,16 +29,15 @@ with col1:
             mask = df1.apply(lambda row: row.astype(str).str.contains(search, case=False).any(), axis=1)
             filtered_df = df1[mask]
             
-            filtered_df_1 = filtered_df.replace(["None", "none", ""], numpy.nan)
-            filtered_df_1 = filtered_df.ffill()
+            # filtered_df_1 = filtered_df.replace(["None", "none", ""], numpy.nan)
+            # filtered_df_1 = filtered_df.ffill()
             
             st.dataframe(filtered_df, width='stretch')
         else:
-            df1 = df1.replace(["None", "none", ""], numpy.nan)
+            # df1 = df1.replace(["None", "none", ""], numpy.nan)
             st.dataframe(df1, width='stretch')
                 
-    except Exception as e:
-        print(e)
+    except:
         st.warning("시험용 계획 파일을 찾을 수 없습니다.")
 
 with col2:
