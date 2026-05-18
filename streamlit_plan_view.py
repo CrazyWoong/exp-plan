@@ -25,7 +25,6 @@ with col1:
         st.write(f"📌DOT {dot} 주차 시험용 반영 수량 ({len(dfs)})")
                 
         if search:
-            # 모든 셀을 문자열로 바꿔서 검색어 포함 여부 확인
             mask = df1.apply(lambda row: row.astype(str).str.contains(search, case=False).any(), axis=1)
             filtered_df = df1[mask]
             
@@ -37,7 +36,8 @@ with col1:
             # df1 = df1.replace(["None", "none", ""], numpy.nan)
             st.dataframe(df1, width='stretch')
                 
-    except:
+    except Exception as e:
+        print(e)
         st.warning("시험용 계획 파일을 찾을 수 없습니다.")
 
 with col2:
