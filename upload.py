@@ -36,6 +36,6 @@ print(f"{dot}주차 파일 업로드 완료!")
 # git push origin main
 
 ##########################################
-# [rejected] 발생 시
+# [rejected] 발생 시 (rmdir /s /q .git\rebase-merge : Rabase 잔재 폴더 강제 삭제)
 # git pull origin main --rebase
 # git push origin main
