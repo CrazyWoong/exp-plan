@@ -99,13 +99,12 @@ with col3:
             filtered_df_2 = filtered_df_2.replace(["None", "none", ""], numpy.nan)
             filtered_df_2 = filtered_df_2.ffill()
             
-            st.dataframe(filtered_df_2, width='stretch')       
+            st.dataframe(filtered_df_2, column_config={"ISSUE" : st.column_config.Column(width=250)}, width='stretch')       
         else:
             df3_1 = df3_1.replace(["None", "none", ""], numpy.nan)
             df3_1 = df3_1.ffill()
                         
-            st.dataframe(df3_1, width='stretch')
-            
+            st.dataframe(df3_1, column_config={"ISSUE" : st.column_config.Column(width=250)}, width='stretch')
     except:
         st.warning("History 파일을 찾을 수 없습니다.")
 
@@ -147,11 +146,11 @@ with col4:
             filtered_df_3 = filtered_df_3.replace(["None", "none", ""], numpy.nan)
             filtered_df_3 = filtered_df_3.ffill()
             
-            st.dataframe(filtered_df_3, width='stretch')
+            st.dataframe(filtered_df_3, column_config={"ISSUE" : st.column_config.Column(width=250)}, width='stretch')
         else:
             df4_1 = df4_1.replace(["None", "none", ""], numpy.nan)
             df4_1 = df4_1.ffill()
-            st.dataframe(df4_1, width='stretch')
+            st.dataframe(df4_1, column_config={"ISSUE" : st.column_config.Column(width=250)}, width='stretch')
             
     except Exception as e:
         print(e)
