@@ -36,8 +36,7 @@ with col1:
             # df1 = df1.replace(["None", "none", ""], numpy.nan)
             st.dataframe(df1, width='stretch')
                 
-    except Exception as e:
-        print(e)
+    except:
         st.warning("시험용 계획 파일을 찾을 수 없습니다.")
 
 with col2:
