@@ -32,6 +32,10 @@ print(f"{dot}주차 파일 업로드 완료!")
 # 에러 발생 시
 # git add .
 # git commit -m "temp commit for rebase"
+# git pull origin main --rebase
+# git push origin main
 
+##########################################
+# [rejected] 발생 시
 # git pull origin main --rebase
 # git push origin main
