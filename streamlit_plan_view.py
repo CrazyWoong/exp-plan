@@ -23,18 +23,30 @@ with col1:
         df1 = pd.read_excel("exp_now.xlsx", header=1)
         dfs = df1.drop_duplicates(subset="ECN No.", keep='first')
         st.write(f"📌DOT {dot} 주차 시험용 반영 수량 ({len(dfs)})")
+        
+        df1_1 = df1[["담당", "R&D", "PI", "LINE", "ECN No.", "제조 특이 사항",
+                "Product", "Size", "Pattern", "PR", "T/L", "B/W", "USE", "BR", "Spec No.", "EA.", "Plan",
+                "성형기\n(OE/RE)", "ECN Purpose",
+                "T/D\nCTB", "T/D\nSUT", "T/D\nTRW", "T/D\nChimney", "T/D\nDie No", "T/D\nNew/Exist", "T/D\nTotal Width",
+                "S/W\nBSW", "S/W\nRIC", "S/W\nDie No", "S/W\nNew/Exist", "S/W\nWidth",
+                "PA", "Belt Drum\nCircumference",
+                "I/L#1\nCode", "I/L#1\nWidth", "I/L#2\nWidth",
+                "C/C#1\nCode", "C/C#1\nRolled", "C/C#1\nWidth", "C/C#1\nAngle",
+                "C/C#2\nCode", "C/C#2\nRolled", "C/C#2\nWidth", "C/C#2\nAngle",
+                "BT#1\nCode", "BT#1\nRolled", "BT#1\nWidth", "BT#1\nAngle",
+                "BT#2\nCode", "BT#2\nRolled", "BT#2\nWidth", "BT#2\nAngle",
+                "JLB\nRolled", "Side Filling Tape\nWidth", "SRFM\nCode", "SRFM\nWidth", "SRFM\nAngle",
+                "Bead Filler Tape\nCode", "Bead Filler Tape\nComp'd",
+                "Over", "Rim Cushion Sheet\nWidth", "Special Material",
+                "Mold No.", "Bladder\nCode", "Curing\nTime(Old)", "CTR",
+                "Bead\nCode", "Bead\nBundle", "Bead\nFiller", "Bead\nBIC", "Special Notice", "Mold Ware\nStatus", "업체"]]
                 
         if search:
-            mask = df1.apply(lambda row: row.astype(str).str.contains(search, case=False).any(), axis=1)
-            filtered_df = df1[mask]
-            
-            # filtered_df_1 = filtered_df.replace(["None", "none", ""], numpy.nan)
-            # filtered_df_1 = filtered_df.ffill()
-            
+            mask = df1_1.apply(lambda row: row.astype(str).str.contains(search, case=False).any(), axis=1)
+            filtered_df = df1_1[mask]
             st.dataframe(filtered_df, width='stretch')
         else:
-            # df1 = df1.replace(["None", "none", ""], numpy.nan)
-            st.dataframe(df1, width='stretch')
+            st.dataframe(df1_1, width='stretch')
                 
     except:
         st.warning("시험용 계획 파일을 찾을 수 없습니다.")
@@ -44,19 +56,29 @@ with col2:
         df2 = pd.read_excel("mass_now.xlsx", header=1)
         st.write(f"📌DOT {dot} 주차 양시 반영 수량 ({len(df2)})")
         
+        df2_1 = df2[["담당", "R&D", "PI", "LINE", "ECN No.", "제조 특이 사항",
+                "Product", "Size", "Pattern", "PR", "T/L", "B/W", "USE", "BR", "Spec No.", "EA.", "Plan",
+                "성형기\n(OE/RE)", "ECN Purpose",
+                "T/D\nCTB", "T/D\nSUT", "T/D\nTRW", "T/D\nChimney", "T/D\nDie No", "T/D\nNew/Exist", "T/D\nTotal Width",
+                "S/W\nBSW", "S/W\nRIC", "S/W\nDie No", "S/W\nNew/Exist", "S/W\nWidth",
+                "PA", "Belt Drum\nCircumference",
+                "I/L#1\nCode", "I/L#1\nWidth", "I/L#2\nWidth",
+                "C/C#1\nCode", "C/C#1\nRolled", "C/C#1\nWidth", "C/C#1\nAngle",
+                "C/C#2\nCode", "C/C#2\nRolled", "C/C#2\nWidth", "C/C#2\nAngle",
+                "BT#1\nCode", "BT#1\nRolled", "BT#1\nWidth", "BT#1\nAngle",
+                "BT#2\nCode", "BT#2\nRolled", "BT#2\nWidth", "BT#2\nAngle",
+                "JLB\nRolled", "Side Filling Tape\nWidth", "SRFM\nCode", "SRFM\nWidth", "SRFM\nAngle",
+                "Bead Filler Tape\nCode", "Bead Filler Tape\nComp'd",
+                "Over", "Rim Cushion Sheet\nWidth", "Special Material",
+                "Mold No.", "Bladder\nCode", "Curing\nTime(Old)", "CTR",
+                "Bead\nCode", "Bead\nBundle", "Bead\nFiller", "Bead\nBIC", "Special Notice", "Mold Ware\nStatus", "업체"]]
+        
         if search:
-            mask_1 = df2.apply(lambda rows: rows.astype(str).str.contains(search, case=False).any(), axis=1)
-            filtered_df_1 = df2[mask_1]
-            
-            filtered_df_1 = filtered_df_1.replace(["None", "none", ""], numpy.nan)
-            filtered_df_1 = filtered_df_1.ffill()
-            
+            mask_1 = df2_1.apply(lambda rows: rows.astype(str).str.contains(search, case=False).any(), axis=1)
+            filtered_df_1 = df2_1[mask_1]    
             st.dataframe(filtered_df_1, width='stretch')
         else:
-            df2 = df2.replace(["None", "none", ""], numpy.nan)
-            df2 = df2.ffill()
-            
-            st.dataframe(df2, width='stretch') # use_container_width=True : 2026 new
+            st.dataframe(df2_1, width='stretch') # use_container_width=True : 2026 new
             
     except:
         st.warning("양시 계획 파일을 찾을 수 없습니다.")
@@ -142,14 +164,8 @@ with col4:
             filtered_ecn_1["ECN No."].replace("None", numpy.nan)
             filtered_ecn_1 = filtered_ecn_1.dropna(subset=["ECN No."]) #, inplace=True)
             st.write(f"⚡{len(filtered_ecn_1)} 개 ECN이 검색되었습니다.")
-            
-            filtered_df_3 = filtered_df_3.replace(["None", "none", ""], numpy.nan)
-            filtered_df_3 = filtered_df_3.ffill()
-            
             st.dataframe(filtered_df_3, column_config={"ISSUE" : st.column_config.Column(width=250)}, width='stretch')
         else:
-            df4_1 = df4_1.replace(["None", "none", ""], numpy.nan)
-            df4_1 = df4_1.ffill()
             st.dataframe(df4_1, column_config={"ISSUE" : st.column_config.Column(width=250)}, width='stretch')
             
     except Exception as e:
