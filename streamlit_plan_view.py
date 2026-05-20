@@ -18,6 +18,21 @@ search = st.text_input("🔍찾으실 내용을 입력하세요")
 
 pd.set_option('future.no_silent_downcasting', True)
 
+def color_weekday(val):
+    if "월" in val:
+        color = 'color: #FFFF00'
+    elif '화' in val :
+        color = 'color: #FF6600'
+    elif '수' in val :
+        color = 'color: #00CC00'
+    elif '목' in val :
+        color = 'color: #FF33CC'
+    elif '금' in val :
+        color = 'color: #0066FF'
+    else:
+        color = 'color: #FFFFFF'
+    return color
+
 with col1:
     try:
         df1 = pd.read_excel("exp_now.xlsx", header=1)
@@ -44,9 +59,11 @@ with col1:
         if search:
             mask = df1_1.apply(lambda row: row.astype(str).str.contains(search, case=False).any(), axis=1)
             filtered_df = df1_1[mask]
-            st.dataframe(filtered_df, width='stretch')
+            styled_df = filtered_df.style.applymap(color_weekday, subset=['Plan'])
+            st.dataframe(styled_df, width='stretch')
         else:
-            st.dataframe(df1_1, width='stretch')
+            styled_df = df1_1.style.applymap(color_weekday, subset=['Plan'])
+            st.dataframe(styled_df, width='stretch')
                 
     except:
         st.warning("시험용 계획 파일을 찾을 수 없습니다.")
@@ -75,10 +92,12 @@ with col2:
         
         if search:
             mask_1 = df2_1.apply(lambda rows: rows.astype(str).str.contains(search, case=False).any(), axis=1)
-            filtered_df_1 = df2_1[mask_1]    
-            st.dataframe(filtered_df_1, width='stretch')
+            filtered_df_1 = df2_1[mask_1]
+            styled_df_1 = filtered_df_1.style.applymap(color_weekday, subset=['Plan'])
+            st.dataframe(styled_df_1, width='stretch')
         else:
-            st.dataframe(df2_1, width='stretch') # use_container_width=True : 2026 new
+            styled_df_1 = df2_1.style.applymap(color_weekday, subset=['Plan'])
+            st.dataframe(styled_df_1, width='stretch')
             
     except:
         st.warning("양시 계획 파일을 찾을 수 없습니다.")
@@ -121,12 +140,14 @@ with col3:
             filtered_df_2 = filtered_df_2.replace(["None", "none", ""], numpy.nan)
             filtered_df_2 = filtered_df_2.ffill()
             
-            st.dataframe(filtered_df_2, column_config={"ISSUE" : st.column_config.Column(width=250)}, width='stretch')       
+            styled_df_2 = filtered_df_2.style.applymap(color_weekday, subset=['Plan'])
+            st.dataframe(styled_df_2, column_config={"ISSUE" : st.column_config.Column(width=250)}, width='stretch')      
         else:
             df3_1 = df3_1.replace(["None", "none", ""], numpy.nan)
             df3_1 = df3_1.ffill()
-                        
-            st.dataframe(df3_1, column_config={"ISSUE" : st.column_config.Column(width=250)}, width='stretch')
+            
+            styled_df_2 = df3_1.style.applymap(color_weekday, subset=['Plan'])
+            st.dataframe(styled_df_2, column_config={"ISSUE" : st.column_config.Column(width=250)}, width='stretch')
     except:
         st.warning("History 파일을 찾을 수 없습니다.")
 
@@ -164,9 +185,12 @@ with col4:
             filtered_ecn_1["ECN No."].replace("None", numpy.nan)
             filtered_ecn_1 = filtered_ecn_1.dropna(subset=["ECN No."]) #, inplace=True)
             st.write(f"⚡{len(filtered_ecn_1)} 개 ECN이 검색되었습니다.")
-            st.dataframe(filtered_df_3, column_config={"ISSUE" : st.column_config.Column(width=250)}, width='stretch')
+            
+            styled_df_3 = filtered_df_3.style.applymap(color_weekday, subset=['Plan'])
+            st.dataframe(styled_df_3, column_config={"ISSUE" : st.column_config.Column(width=250)}, width='stretch') 
         else:
-            st.dataframe(df4_1, column_config={"ISSUE" : st.column_config.Column(width=250)}, width='stretch')
+            styled_df_3 = df4_1.style.applymap(color_weekday, subset=['Plan'])
+            st.dataframe(styled_df_3, column_config={"ISSUE" : st.column_config.Column(width=250)}, width='stretch')
             
     except Exception as e:
         print(e)
