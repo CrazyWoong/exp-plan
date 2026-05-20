@@ -59,8 +59,8 @@ with col1:
         if search:
             mask = df1_1.apply(lambda row: row.astype(str).str.contains(search, case=False).any(), axis=1)
             filtered_df = df1_1[mask]
-            styled_df = filtered_df.style.applymap(color_weekday, subset=['Plan'])
-            st.dataframe(styled_df, width='stretch')
+            s_df = filtered_df.style.applymap(color_weekday, subset=['Plan'])
+            st.dataframe(s_df, width='stretch')
         else:
             styled_df = df1_1.style.applymap(color_weekday, subset=['Plan'])
             st.dataframe(styled_df, width='stretch')
@@ -93,8 +93,8 @@ with col2:
         if search:
             mask_1 = df2_1.apply(lambda rows: rows.astype(str).str.contains(search, case=False).any(), axis=1)
             filtered_df_1 = df2_1[mask_1]
-            styled_df_1 = filtered_df_1.style.applymap(color_weekday, subset=['Plan'])
-            st.dataframe(styled_df_1, width='stretch')
+            s_df_1 = filtered_df_1.style.applymap(color_weekday, subset=['Plan'])
+            st.dataframe(s_df_1, width='stretch')
         else:
             styled_df_1 = df2_1.style.applymap(color_weekday, subset=['Plan'])
             st.dataframe(styled_df_1, width='stretch')
@@ -140,8 +140,8 @@ with col3:
             filtered_df_2 = filtered_df_2.replace(["None", "none", ""], numpy.nan)
             filtered_df_2 = filtered_df_2.ffill()
             
-            styled_df_2 = filtered_df_2.style.applymap(color_weekday, subset=['Plan'])
-            st.dataframe(styled_df_2, column_config={"ISSUE" : st.column_config.Column(width=250)}, width='stretch')      
+            s_df_2 = filtered_df_2.style.applymap(color_weekday, subset=['Plan'])
+            st.dataframe(s_df_2, column_config={"ISSUE" : st.column_config.Column(width=250)}, width='stretch')      
         else:
             df3_1 = df3_1.replace(["None", "none", ""], numpy.nan)
             df3_1 = df3_1.ffill()
@@ -186,8 +186,8 @@ with col4:
             filtered_ecn_1 = filtered_ecn_1.dropna(subset=["ECN No."]) #, inplace=True)
             st.write(f"⚡{len(filtered_ecn_1)} 개 ECN이 검색되었습니다.")
             
-            styled_df_3 = filtered_df_3.style.applymap(color_weekday, subset=['Plan'])
-            st.dataframe(styled_df_3, column_config={"ISSUE" : st.column_config.Column(width=250)}, width='stretch') 
+            s_df_3 = filtered_df_3.style.applymap(color_weekday, subset=['Plan'])
+            st.dataframe(s_df_3, column_config={"ISSUE" : st.column_config.Column(width=250)}, width='stretch') 
         else:
             styled_df_3 = df4_1.style.applymap(color_weekday, subset=['Plan'])
             st.dataframe(styled_df_3, column_config={"ISSUE" : st.column_config.Column(width=250)}, width='stretch')
