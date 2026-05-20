@@ -65,7 +65,8 @@ with col1:
             styled_df = df1_1.style.applymap(color_weekday, subset=['Plan'])
             st.dataframe(styled_df, width='stretch')
                 
-    except:
+    except Exception as e:
+        st.write(e)
         st.warning("시험용 계획 파일을 찾을 수 없습니다.")
 
 with col2:
