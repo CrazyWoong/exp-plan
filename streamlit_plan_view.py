@@ -111,7 +111,7 @@ with col3:
         df3["DOT"] = "DOT " + df3["DOT"]
         
         df3 = df3.astype("str")
-        df3 = df3.map(lambda x: x.replace('.0', '') if x.endswith('.0') else x)
+        df3 = df3.map(lambda x: str(x).replace('.0', '') if x.endswith('.0') else x)
         
         df3_1 = df3[["DOT", "담당", "R&D", "PI", "LINE", "ECN No.", "제조 특이 사항",
                 "Product", "Size", "Pattern", "PR", "T/L", "B/W", "USE", "BR", "Spec No.", "EA.", "Plan",
@@ -165,7 +165,7 @@ with col4:
         df4["DOT"] = "DOT " + df4["DOT"]
         
         df4 = df4.astype("str")
-        df4 = df4.map(lambda x: x.replace('.0', '') if x.endswith('.0') else x)
+        df4 = df4.map(lambda x: str(x).replace('.0', '') if x.endswith('.0') else x)
         
         df4_1 = df4[["DOT", "담당", "R&D", "PI", "LINE", "ECN No.", "제조 특이 사항",
                 "Product", "Size", "Pattern", "PR", "T/L", "B/W", "USE", "BR", "Spec No.", "EA.", "Plan",
