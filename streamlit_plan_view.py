@@ -152,7 +152,8 @@ with col3:
             styled_df_2 = df3_1.style.map(color_weekday, subset=['Plan'])
             st.dataframe(styled_df_2, column_config={"ISSUE" : st.column_config.Column(width=250)}, width='stretch')
             
-    except:
+    except Exception as e:
+        st.write(e)
         st.warning("History 파일을 찾을 수 없습니다.")
 
 with col4:
