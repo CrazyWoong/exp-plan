@@ -110,9 +110,6 @@ with col3:
         df3["DOT"] = df3["DOT"].str.zfill(2)
         df3["DOT"] = "DOT " + df3["DOT"]
         
-        # df3 = df3.astype("str")
-        # df3 = df3.map(lambda x: str(x).replace('.0', '') if x.endswith('.0') else x)
-        
         df3_1 = df3[["DOT", "담당", "R&D", "PI", "LINE", "ECN No.", "제조 특이 사항",
                 "Product", "Size", "Pattern", "PR", "T/L", "B/W", "USE", "BR", "Spec No.", "EA.", "Plan",
                 "성형기\n(OE/RE)", "ECN Purpose",
@@ -143,7 +140,7 @@ with col3:
             filtered_df_2 = filtered_df_2.replace(["None", "none", "nan", ""], numpy.nan)
             filtered_df_2 = filtered_df_2.ffill()
             
-            s_df_2 = filtered_df_2.style.map(color_weekday, subset=['Plan'])
+            s_df_2 = filtered_df_2.style.map(color_weekday, subset=['Plan']).format(precision=0)
             st.dataframe(s_df_2, column_config={"ISSUE" : st.column_config.Column(width=250)}, width='stretch')
         else:
             df3_1 = df3_1.replace(["None", "none", "nan", ""], numpy.nan)
@@ -152,8 +149,7 @@ with col3:
             styled_df_2 = df3_1.style.map(color_weekday, subset=['Plan']).format(precision=0)
             st.dataframe(styled_df_2, column_config={"ISSUE" : st.column_config.Column(width=250)}, width='stretch')
             
-    except Exception as e:
-        st.write(e)
+    except:
         st.warning("History 파일을 찾을 수 없습니다.")
 
 with col4:
@@ -163,9 +159,6 @@ with col4:
         df4["DOT"] = df4["DOT"].astype("str")
         df4["DOT"] = df4["DOT"].str.zfill(2)
         df4["DOT"] = "DOT " + df4["DOT"]
-        
-        df4 = df4.astype("str")
-        df4 = df4.map(lambda x: str(x).replace('.0', '') if x.endswith('.0') else x)
         
         df4_1 = df4[["DOT", "담당", "R&D", "PI", "LINE", "ECN No.", "제조 특이 사항",
                 "Product", "Size", "Pattern", "PR", "T/L", "B/W", "USE", "BR", "Spec No.", "EA.", "Plan",
@@ -194,10 +187,10 @@ with col4:
             filtered_ecn_1 = filtered_ecn_1.dropna(subset=["ECN No."]) #, inplace=True)
             st.write(f"⚡{len(filtered_ecn_1)} 개 ECN이 검색되었습니다.")
             
-            s_df_3 = filtered_df_3.style.map(color_weekday, subset=['Plan'])
+            s_df_3 = filtered_df_3.style.map(color_weekday, subset=['Plan']).format(precision=0)
             st.dataframe(s_df_3, column_config={"ISSUE" : st.column_config.Column(width=250)}, width='stretch') 
         else:
-            styled_df_3 = df4_1.style.map(color_weekday, subset=['Plan'])
+            styled_df_3 = df4_1.style.map(color_weekday, subset=['Plan']).format(precision=0)
             st.dataframe(styled_df_3, column_config={"ISSUE" : st.column_config.Column(width=250)}, width='stretch')
             
     except:
