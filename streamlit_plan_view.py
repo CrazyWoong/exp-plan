@@ -19,7 +19,7 @@ search = st.text_input("🔍찾으실 내용을 입력하세요")
 pd.set_option('future.no_silent_downcasting', True)
 
 def color_weekday(val):
-    if "월" in val:
+    if "월" in val :
         color = 'color: #FFFF00'
     elif '화' in val :
         color = 'color: #FF6600'
@@ -110,6 +110,9 @@ with col3:
         df3["DOT"] = df3["DOT"].str.zfill(2)
         df3["DOT"] = "DOT " + df3["DOT"]
         
+        df3 = df3.astype(str)
+        df3 = df3.map(lambda x: x.replace('.0', '') if x.endswith('.0') else x)
+        
         df3_1 = df3[["DOT", "담당", "R&D", "PI", "LINE", "ECN No.", "제조 특이 사항",
                 "Product", "Size", "Pattern", "PR", "T/L", "B/W", "USE", "BR", "Spec No.", "EA.", "Plan",
                 "성형기\n(OE/RE)", "ECN Purpose",
@@ -133,21 +136,22 @@ with col3:
             filtered_df_2 = df3_1[mask_2]
         
             filtered_ecn = filtered_df_2.drop_duplicates(subset="ECN No.", keep='first')
-            filtered_ecn["ECN No."].replace("None", numpy.nan)
+            filtered_ecn["ECN No."] = filtered_ecn["ECN No."].replace(["None", "none", "nan", ""], numpy.nan)
             filtered_ecn = filtered_ecn.dropna(subset=["ECN No."]) #, inplace=True)
             st.write(f"⚡{len(filtered_ecn)} 개 ECN이 검색되었습니다.")
-
-            filtered_df_2 = filtered_df_2.replace(["None", "none", ""], numpy.nan)
+            
+            filtered_df_2 = filtered_df_2.replace(["None", "none", "nan", ""], numpy.nan)
             filtered_df_2 = filtered_df_2.ffill()
             
             s_df_2 = filtered_df_2.style.map(color_weekday, subset=['Plan'])
-            st.dataframe(s_df_2, column_config={"ISSUE" : st.column_config.Column(width=250)}, width='stretch')      
+            st.dataframe(s_df_2, column_config={"ISSUE" : st.column_config.Column(width=250)}, width='stretch')
         else:
-            df3_1 = df3_1.replace(["None", "none", ""], numpy.nan)
+            df3_1 = df3_1.replace(["None", "none", "nan", ""], numpy.nan)
             df3_1 = df3_1.ffill()
             
             styled_df_2 = df3_1.style.map(color_weekday, subset=['Plan'])
             st.dataframe(styled_df_2, column_config={"ISSUE" : st.column_config.Column(width=250)}, width='stretch')
+            
     except:
         st.warning("History 파일을 찾을 수 없습니다.")
 
@@ -158,6 +162,9 @@ with col4:
         df4["DOT"] = df4["DOT"].astype("str")
         df4["DOT"] = df4["DOT"].str.zfill(2)
         df4["DOT"] = "DOT " + df4["DOT"]
+        
+        df4 = df4.astype(str)
+        df4 = df4.map(lambda x: x.replace('.0', '') if x.endswith('.0') else x)
         
         df4_1 = df4[["DOT", "담당", "R&D", "PI", "LINE", "ECN No.", "제조 특이 사항",
                 "Product", "Size", "Pattern", "PR", "T/L", "B/W", "USE", "BR", "Spec No.", "EA.", "Plan",
@@ -182,7 +189,7 @@ with col4:
             filtered_df_3 = df4_1[mask_3]
             
             filtered_ecn_1 = filtered_df_3.drop_duplicates(subset="ECN No.", keep='first')
-            filtered_ecn_1["ECN No."].replace("None", numpy.nan)
+            filtered_ecn_1["ECN No."] = filtered_ecn_1["ECN No."].replace(["None", "none", "nan", ""], numpy.nan)
             filtered_ecn_1 = filtered_ecn_1.dropna(subset=["ECN No."]) #, inplace=True)
             st.write(f"⚡{len(filtered_ecn_1)} 개 ECN이 검색되었습니다.")
             
