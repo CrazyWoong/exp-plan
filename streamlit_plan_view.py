@@ -149,8 +149,7 @@ with col3:
             df3_1 = df3_1.replace(["None", "none", "nan", ""], numpy.nan)
             df3_1 = df3_1.ffill()
             
-            styled_df_2 = df3_1.style.map(color_weekday, subset=['Plan'])
-            styled_df_2 = styled_df_2.style.format(precison=0)
+            styled_df_2 = df3_1.style.map(color_weekday, subset=['Plan']).format(precision=0)
             st.dataframe(styled_df_2, column_config={"ISSUE" : st.column_config.Column(width=250)}, width='stretch')
             
     except Exception as e:
