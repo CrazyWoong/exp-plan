@@ -110,8 +110,8 @@ with col3:
         df3["DOT"] = df3["DOT"].str.zfill(2)
         df3["DOT"] = "DOT " + df3["DOT"]
         
-        df3 = df3.astype("str")
-        df3 = df3.map(lambda x: str(x).replace('.0', '') if x.endswith('.0') else x)
+        # df3 = df3.astype("str")
+        # df3 = df3.map(lambda x: str(x).replace('.0', '') if x.endswith('.0') else x)
         
         df3_1 = df3[["DOT", "담당", "R&D", "PI", "LINE", "ECN No.", "제조 특이 사항",
                 "Product", "Size", "Pattern", "PR", "T/L", "B/W", "USE", "BR", "Spec No.", "EA.", "Plan",
@@ -150,7 +150,7 @@ with col3:
             df3_1 = df3_1.ffill()
             
             styled_df_2 = df3_1.style.map(color_weekday, subset=['Plan'])
-            st.dataframe(styled_df_2, column_config={"ISSUE" : st.column_config.Column(width=250)}, width='stretch')
+            st.dataframe(styled_df_2.style.format(precison=0), column_config={"ISSUE" : st.column_config.Column(width=250)}, width='stretch')
             
     except Exception as e:
         st.write(e)
