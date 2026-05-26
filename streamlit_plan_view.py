@@ -8,6 +8,7 @@ dot = datetime.datetime.now().isocalendar()[1] - 1
 st.set_page_config(
     page_title="📂 EXP/MASS 계획 조회",
     layout="wide", # 화면을 넓게 사용
+    page_icon="📄",
     initial_sidebar_state="collapsed" # 모바일에서 사이드바를 숨겨 공간 확보
 )
 
